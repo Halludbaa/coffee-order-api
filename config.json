@@ -1,0 +1,21 @@
+{
+  "app": {
+    "name": "gin_api_setup",
+    "version": "1.0.0",
+    "author": "Abdullah as Hallduba"
+  },
+  "web": {
+    "port": "3000"
+  },
+  "log": {
+    "level": 4,
+    "guide": {
+      "fatal": 1,
+      "error": 2,
+      "warn": 3,
+      "info": 4,
+      "debug": 5,
+      "trace": 6
+    }
+  }
+}
