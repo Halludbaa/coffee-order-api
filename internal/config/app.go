@@ -2,6 +2,7 @@ package config
 
 import (
 	"api_setup/internal/delivery/rest/route"
+	"api_setup/internal/services"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -16,9 +17,12 @@ type BoostrapConfig struct {
 	Viper		*viper.Viper
 }
 func Boostrap(config *BoostrapConfig) {
+	_ = services.NewJWTServices(config.Viper) // jwt service inital
+	
 	router := route.RouteConfig{
 		App: config.App,
 	}
+
 	router.Setup()
 
 }

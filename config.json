@@ -17,5 +17,11 @@
       "debug": 5,
       "trace": 6
     }
+  },
+  "jwt": {
+    "key": {
+      "refresh": "fdkajfdjalkfjkajfkjakfjalthisissosecretokjakfjaj",
+      "access": "thisissoajfkajkdjasecrettooright?ajdkajjkajdjyahahakon"
+    }
   }
 }
