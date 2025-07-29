@@ -23,5 +23,23 @@
       "refresh": "fdkajfdjalkfjkajfkjakfjalthisissosecretokjakfjaj",
       "access": "thisissoajfkajkdjasecrettooright?ajdkajjkajdjyahahakon"
     }
+  },
+  "cors": {
+    "origin": "*",
+    "credentials": "true"
+  },
+  "db": {
+    "app": "postgres",
+    "user": "postgres",
+    "port": "5432",
+    "password": "dockerpostgres1",
+    "host": "localhost",
+    "name": "todo_db",
+    "mongo": {
+      "host": "localhost",
+      "port": "27017",
+      "username": "mongos",
+      "password": "1234567"
+    }
   }
 }
