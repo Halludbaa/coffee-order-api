@@ -1,27 +1,32 @@
 package main
 
 import (
-	"api_setup/internal/config"
+	"coffee/internal/config"
+	"context"
 	"fmt"
-
-	"github.com/go-playground/validator/v10"
 )
 
 
 func main(){
 	viper := config.NewViper()
-	app := config.NewGin()
-	validate := validator.New()
 	log := config.NewLogger(viper)
+	db := config.NewDB(viper, log)
+	app := config.NewGin()
+	mongo := config.NewMongo(viper, log)
 
-	defer log.Fatal("App Was Stopped!")
+	defer func ()  {
+		db.Close()
+		mongo.Disconnect(context.TODO())
+		log.Fatal("App Was Stopped!")
+	}()
 
 	log.Info("App Is Running!")
 	config.Boostrap(&config.BoostrapConfig{
 		App: app,
-		Validate: validate,
 		Log: log,
 		Viper: viper,
+		DB: db,
+		Mongo: mongo,
 	})
 	
 	err := app.Run(fmt.Sprintf(":%s", viper.GetString("web.port")))

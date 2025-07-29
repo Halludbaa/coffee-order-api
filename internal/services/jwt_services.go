@@ -1,10 +1,13 @@
 package services
 
 import (
+	"coffee/internal/model"
+	"coffee/internal/model/apperrors"
 	"os"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -21,10 +24,12 @@ type JWTClaims struct {
 type JWTServices struct {
 	access_key []byte
 	refresh_key []byte
+	log	*logrus.Logger
 }
 
-func NewJWTServices (viper *viper.Viper) *JWTServices {
+func NewJWTServices (viper *viper.Viper, log *logrus.Logger) model.JWTServices {
 	return &JWTServices{
+		log: log,
 		access_key: []byte(viper.GetString("jwt.key.access")),
 		refresh_key: []byte(viper.GetString("jwt.key.refresh")),
 	}
@@ -35,7 +40,7 @@ func (sJWT *JWTServices) GenerateAccessToken(userID string) (string, error) {
 	claims := JWTClaims{
 		UserID: userID,
 		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(15 * time.Minute)),
+			ExpiresAt: jwt.NewNumericDate(time.Now().Add(30 * time.Minute)),
 		},
 	}
 
@@ -57,42 +62,43 @@ func  (sJWT *JWTServices) GenerateRefreshToken(userID string) (string, error) {
 	return token.SignedString(sJWT.refresh_key)
 }
 
-func  (sJWT *JWTServices)  ValidateAccessToken(tokenString string) (string, error) {
+func  (sJWT *JWTServices)  ValidateAccessToken(tokenString string) (string, *apperrors.Apperrors) {
 	
 	claims := new(JWTClaims)
 	token, err := jwt.ParseWithClaims(tokenString, claims, func (token *jwt.Token) (interface{}, error) {
-		return access_key, nil
+		return sJWT.access_key, nil
 	})
 
+	sJWT.log.Debug(err)
 	if err != nil {
-		return "", nil
+		return "", apperrors.NewAuthorization("expired or invalid token")
 	}
 
-
 	if !token.Valid {
-		return "", nil
+		sJWT.log.Debug(token.Valid)
+		return "", apperrors.NewAuthorization("expired or invalid token")
 	}
 
 	
 	return claims.UserID, nil
 }
 
-func  (sJWT *JWTServices) ValidateRefreshToken(tokenString string) (string, error) {
+func  (sJWT *JWTServices) ValidateRefreshToken(tokenString string) (string, *apperrors.Apperrors){
 	claims := new(JWTClaims)
 	token, err := jwt.ParseWithClaims(tokenString, claims, func (token *jwt.Token) (interface{}, error) {
-		return refresh_key, nil
+		return sJWT.refresh_key, nil
 	})
 
 	if err != nil {
 		if err == jwt.ErrSignatureInvalid {
-			return "", nil
+			return "", apperrors.NewAuthorization("invalid token")
 		}
 		
-		return "", nil
+		return "", apperrors.NewAuthorization("expired or invalid token")
 	}
 
 	if !token.Valid {
-		return "", nil
+		return "",  apperrors.NewAuthorization("expired or invalid token")
 	}
 	
 	return claims.UserID, nil

@@ -1,11 +1,11 @@
 package services
 
 import (
-	"api_setup/internal/entity"
-	"api_setup/internal/helper"
-	"api_setup/internal/model"
-	"api_setup/internal/model/apperrors"
-	"api_setup/internal/model/converter"
+	"coffee/internal/entity"
+	"coffee/internal/helper"
+	"coffee/internal/model"
+	"coffee/internal/model/apperrors"
+	"coffee/internal/model/converter"
 	"context"
 
 	"github.com/lib/pq"

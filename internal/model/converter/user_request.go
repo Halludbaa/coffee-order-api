@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"api_setup/internal/entity"
-	"api_setup/internal/model"
+	"coffee/internal/entity"
+	"coffee/internal/model"
 )
 
 func SignUpToUser(signInReq *model.SignUpRequest) *entity.User {
@@ -15,7 +15,7 @@ func SignUpToUser(signInReq *model.SignUpRequest) *entity.User {
 
 func UserToResponse(user *entity.User) *model.UserResponse {
 	return &model.UserResponse{
-		Id: user.Id,
+		// Id: user.Id,
 		Username: user.Username,
 		Fullname: user.Fullname,
 		Email: user.Email,

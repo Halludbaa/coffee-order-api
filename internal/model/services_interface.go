@@ -1,8 +1,8 @@
 package model
 
 import (
-	"api_setup/internal/entity"
-	"api_setup/internal/model/apperrors"
+	"coffee/internal/entity"
+	"coffee/internal/model/apperrors"
 	"context"
 )
 

@@ -1,7 +1,7 @@
 package helper
 
 import (
-	"api_setup/internal/model/apperrors"
+	"coffee/internal/model/apperrors"
 
 	"golang.org/x/crypto/bcrypt"
 )

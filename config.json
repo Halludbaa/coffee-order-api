@@ -1,6 +1,6 @@
 {
   "app": {
-    "name": "gin_api_setup",
+    "name": "gin_coffee",
     "version": "1.0.0",
     "author": "Abdullah as Hallduba"
   },
@@ -34,7 +34,7 @@
     "port": "5432",
     "password": "dockerpostgres1",
     "host": "localhost",
-    "name": "todo_db",
+    "name": "coffee_db",
     "mongo": {
       "host": "localhost",
       "port": "27017",

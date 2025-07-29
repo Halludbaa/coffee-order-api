@@ -1,7 +1,7 @@
 package model
 
 import (
-	"api_setup/internal/entity"
+	"coffee/internal/entity"
 	"context"
 )
 
