@@ -11,10 +11,10 @@
     }
   ],
   "paths": {
-    "/api/users": {
+    "/api/barista": {
       "post": {
-        "tags": ["User API"],
-        "description": "Register new user",
+        "tags": ["Barista API"],
+        "description": "Register new barista",
         "requestBody": {
           "content": {
             "application/json": {
@@ -29,9 +29,12 @@
                   },
                   "name": {
                     "type": "string"
+                  },
+                  "branch": {
+                    "type": "string"
                   }
                 },
-                "required": ["id", "name", "password"]
+                "required": ["id", "name", "password", "branch"]
               }
             }
           }
@@ -53,6 +56,9 @@
                         "name": {
                           "type": "string"
                         },
+                        "branch": {
+                          "type": "string"
+                        },
                         "created_at": {
                           "type": "number"
                         },
@@ -69,8 +75,8 @@
         }
       },
       "delete": {
-        "description": "Logout user",
-        "tags": ["User API"],
+        "description": "Logout barista",
+        "tags": ["Barista API"],
         "parameters": [
           {
             "name": "Authorization",
@@ -83,7 +89,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success logout user",
+            "description": "Success logout barista",
             "content": {
               "application/json": {
                 "schema": {
@@ -102,8 +108,8 @@
     },
     "/api/users/_login": {
       "post": {
-        "description": "Login user",
-        "tags": ["User API"],
+        "description": "Login barista",
+        "tags": ["Barista API"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -146,10 +152,41 @@
         }
       }
     },
+    "/api/barista/_waiting_order": {
+      "get": {
+        "description": "Real time order",
+        "tags": ["Barista API"],
+        "responses": {
+          "200": {
+            "description": "Success connect with server",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "integer"
+                        },
+                        "status": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/users/_current": {
       "get": {
-        "tags": ["User API"],
-        "description": "Get current user",
+        "tags": ["Barista API"],
+        "description": "Get current barista",
         "parameters": [
           {
             "name": "Authorization",
@@ -162,7 +199,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Success register new user",
+            "description": "Success register new barista",
             "content": {
               "application/json": {
                 "schema": {
@@ -193,8 +230,8 @@
         }
       },
       "patch": {
-        "tags": ["User API"],
-        "description": "Update current user",
+        "tags": ["Barista API"],
+        "description": "Update current barista",
         "parameters": [
           {
             "name": "Authorization",
@@ -224,7 +261,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success register new user",
+            "description": "Success register new barista",
             "content": {
               "application/json": {
                 "schema": {
