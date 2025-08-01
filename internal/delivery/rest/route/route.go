@@ -20,7 +20,7 @@ type  RouteConfig struct {
 func (c *RouteConfig) Setup(){
 	c.SetupMiddleware()
 	c.SetupPing()
-	c.SetupAPIv1()
+	c.SetupAPI()
 }
 
 func (c *RouteConfig) SetupMiddleware() {
@@ -34,8 +34,8 @@ func (c *RouteConfig) SetupPing() {
 	})
 }
 
-func (c *RouteConfig) SetupAPIv1() {
-	v1 := c.App.Group("/api/v1")
+func (c *RouteConfig) SetupAPI() {
+	v1 := c.App.Group("/api")
 	{
 		c.SetupAuth(v1)
 	}
