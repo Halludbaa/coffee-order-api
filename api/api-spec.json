@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Coffee Order",
+    "title": "Coffee Order API",
     "description": "with Golang",
     "version": "1.0.0"
   },
@@ -47,6 +47,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -87,6 +93,20 @@
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success logout barista",
@@ -95,6 +115,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "boolean"
                     }
@@ -106,7 +132,7 @@
         }
       }
     },
-    "/api/users/_login": {
+    "/api/barista/_login": {
       "post": {
         "description": "Login barista",
         "tags": ["Barista API"],
@@ -136,6 +162,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -164,6 +196,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -183,7 +221,7 @@
         }
       }
     },
-    "/api/users/_current": {
+    "/api/barista/_current": {
       "get": {
         "tags": ["Barista API"],
         "description": "Get current barista",
@@ -205,6 +243,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -267,6 +311,12 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -292,10 +342,10 @@
         }
       }
     },
-    "/api/contacts": {
+    "/api/products": {
       "post": {
-        "tags": ["Contact API"],
-        "description": "Create new contact",
+        "tags": ["Product API"],
+        "description": "Create new product",
         "parameters": [
           {
             "name": "Authorization",
@@ -312,16 +362,371 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "first_name": {
+                  "name": {
                     "type": "string"
                   },
-                  "last_name": {
+                  "price": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create new product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "type": "number"
+                        },
+                        "updated_at": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": ["Product API"],
+        "description": "Get all product",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 10
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "number"
+                          },
+                          "updated_at": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "paging": {
+                      "type": "object",
+                      "properties": {
+                        "page": {
+                          "type": "number"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "total_item": {
+                          "type": "number"
+                        },
+                        "total_page": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products/{productId}": {
+      "get": {
+        "tags": ["Product API"],
+        "description": "Get product by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "type": "number"
+                        },
+                        "updated_at": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Product API"],
+        "description": "Update product by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
                     "type": "string"
                   },
-                  "email": {
+                  "price": {
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "created_at": {
+                          "type": "number"
+                        },
+                        "updated_at": {
+                          "type": "number"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Product API"],
+        "description": "Delete product by id",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "data": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/branch": {
+      "post": {
+        "tags": ["Branch API"],
+        "description": "Create new branch",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
                     "type": "string"
                   },
-                  "phone": {
+                  "location": {
                     "type": "string"
                   }
                 }
@@ -331,28 +736,28 @@
         },
         "responses": {
           "200": {
-            "description": "Success create new contact",
+            "description": "Success create new product",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
                         "id": {
                           "type": "string"
                         },
-                        "first_name": {
+                        "name": {
                           "type": "string"
                         },
-                        "last_name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "phone": {
+                        "location": {
                           "type": "string"
                         },
                         "created_at": {
@@ -371,8 +776,8 @@
         }
       },
       "get": {
-        "tags": ["Contact API"],
-        "description": "Get all contacts",
+        "tags": ["Branch API"],
+        "description": "Get all branch",
         "parameters": [
           {
             "name": "Authorization",
@@ -409,15 +814,7 @@
             }
           },
           {
-            "name": "phone",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "email",
+            "name": "location",
             "in": "query",
             "required": false,
             "schema": {
@@ -427,12 +824,18 @@
         ],
         "responses": {
           "200": {
-            "description": "Success get list of contacts",
+            "description": "Success get list of branch",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -441,16 +844,10 @@
                           "id": {
                             "type": "string"
                           },
-                          "first_name": {
+                          "name": {
                             "type": "string"
                           },
-                          "last_name": {
-                            "type": "string"
-                          },
-                          "email": {
-                            "type": "string"
-                          },
-                          "phone": {
+                          "location": {
                             "type": "string"
                           },
                           "created_at": {
@@ -487,10 +884,10 @@
         }
       }
     },
-    "/api/contacts/{contactId}": {
+    "/api/branch/{branchId}": {
       "get": {
-        "tags": ["Contact API"],
-        "description": "Get contact by id",
+        "tags": ["Branch API"],
+        "description": "Get branch by id",
         "parameters": [
           {
             "name": "Authorization",
@@ -501,7 +898,7 @@
             }
           },
           {
-            "name": "contactId",
+            "name": "branchId",
             "in": "path",
             "required": true,
             "schema": {
@@ -511,28 +908,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Success get contact",
+            "description": "Success get branch",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
                         "id": {
                           "type": "string"
                         },
-                        "first_name": {
+                        "name": {
                           "type": "string"
                         },
-                        "last_name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "phone": {
+                        "location": {
                           "type": "string"
                         },
                         "created_at": {
@@ -551,8 +948,8 @@
         }
       },
       "put": {
-        "tags": ["Contact API"],
-        "description": "Update contact by id",
+        "tags": ["Branch API"],
+        "description": "Update branch by id",
         "parameters": [
           {
             "name": "Authorization",
@@ -563,7 +960,7 @@
             }
           },
           {
-            "name": "contactId",
+            "name": "branch",
             "in": "path",
             "required": true,
             "schema": {
@@ -577,16 +974,10 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "first_name": {
+                  "name": {
                     "type": "string"
                   },
-                  "last_name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "phone": {
+                  "location": {
                     "type": "string"
                   }
                 }
@@ -596,28 +987,28 @@
         },
         "responses": {
           "200": {
-            "description": "Success update contact",
+            "description": "Success update product",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "object",
                       "properties": {
                         "id": {
                           "type": "string"
                         },
-                        "first_name": {
+                        "name": {
                           "type": "string"
                         },
-                        "last_name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "phone": {
+                        "location": {
                           "type": "string"
                         },
                         "created_at": {
@@ -636,8 +1027,8 @@
         }
       },
       "delete": {
-        "tags": ["Contact API"],
-        "description": "Delete contact by id",
+        "tags": ["Branch API"],
+        "description": "Delete branch by id",
         "parameters": [
           {
             "name": "Authorization",
@@ -648,7 +1039,7 @@
             }
           },
           {
-            "name": "contactId",
+            "name": "branchId",
             "in": "path",
             "required": true,
             "schema": {
@@ -658,394 +1049,18 @@
         ],
         "responses": {
           "200": {
-            "description": "Success delete contact",
+            "description": "Success delete branch",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "data": {
-                      "type": "boolean"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/contacts/{contactId}/addresses": {
-      "post": {
-        "tags": ["Address API"],
-        "description": "Create new address",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "street": {
-                    "type": "string"
-                  },
-                  "city": {
-                    "type": "string"
-                  },
-                  "province": {
-                    "type": "string"
-                  },
-                  "country": {
-                    "type": "string"
-                  },
-                  "postal_code": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success create new address",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "street": {
-                          "type": "string"
-                        },
-                        "city": {
-                          "type": "string"
-                        },
-                        "province": {
-                          "type": "string"
-                        },
-                        "country": {
-                          "type": "string"
-                        },
-                        "postal_code": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "number"
-                        },
-                        "updated_at": {
-                          "type": "number"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": ["Address API"],
-        "description": "Get all addresses",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success get list of addresses",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "street": {
-                            "type": "string"
-                          },
-                          "city": {
-                            "type": "string"
-                          },
-                          "province": {
-                            "type": "string"
-                          },
-                          "country": {
-                            "type": "string"
-                          },
-                          "postal_code": {
-                            "type": "string"
-                          },
-                          "created_at": {
-                            "type": "number"
-                          },
-                          "updated_at": {
-                            "type": "number"
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/contacts/{contactId}/addresses/{addressId}": {
-      "get": {
-        "tags": ["Address API"],
-        "description": "Get address by id",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "addressId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success create new address",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "street": {
-                          "type": "string"
-                        },
-                        "city": {
-                          "type": "string"
-                        },
-                        "province": {
-                          "type": "string"
-                        },
-                        "country": {
-                          "type": "string"
-                        },
-                        "postal_code": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "number"
-                        },
-                        "updated_at": {
-                          "type": "number"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": ["Address API"],
-        "description": "Update address by id",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "addressId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "street": {
-                    "type": "string"
-                  },
-                  "city": {
-                    "type": "string"
-                  },
-                  "province": {
-                    "type": "string"
-                  },
-                  "country": {
-                    "type": "string"
-                  },
-                  "postal_code": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success create new address",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "street": {
-                          "type": "string"
-                        },
-                        "city": {
-                          "type": "string"
-                        },
-                        "province": {
-                          "type": "string"
-                        },
-                        "country": {
-                          "type": "string"
-                        },
-                        "postal_code": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "number"
-                        },
-                        "updated_at": {
-                          "type": "number"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": ["Address API"],
-        "description": "Delete address by id",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "contactId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "addressId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success create new address",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
+                    "code": {
+                      "type": "number"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
                     "data": {
                       "type": "boolean"
                     }

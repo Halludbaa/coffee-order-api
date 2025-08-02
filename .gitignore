@@ -25,5 +25,5 @@ go.work.sum
 .env
 go.mod
 go.sum
-
+.vscode
 ./go.sum
