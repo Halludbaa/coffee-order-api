@@ -47,12 +47,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -115,12 +109,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "boolean"
                     }
@@ -162,12 +150,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -196,22 +178,8 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
-                      "type": "object",
-                      "properties": {
-                        "code": {
-                          "type": "integer"
-                        },
-                        "status": {
-                          "type": "string"
-                        }
-                      }
+                      "type": "boolean"
                     }
                   }
                 }
@@ -243,12 +211,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -311,12 +273,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -381,12 +337,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -461,12 +411,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -545,12 +489,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -624,12 +562,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -686,12 +618,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "boolean"
                     }
@@ -742,12 +668,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -814,7 +734,7 @@
             }
           },
           {
-            "name": "location",
+            "name": "address",
             "in": "query",
             "required": false,
             "schema": {
@@ -830,12 +750,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -882,6 +796,81 @@
             }
           }
         }
+      },
+      "delete": {
+        "tags": ["Branch API"],
+        "description": "Exit customer menu",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success exit customer menu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/branch/_enter": {
+      "post": {
+        "tags": ["Branch API"],
+        "description": "Enter Customer Menu",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "branch_id": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Enter customer menu",
+            "content": {
+              "application/josn": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/branch/{branchId}": {
@@ -914,12 +903,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -993,12 +976,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -1055,12 +1032,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "boolean"
                     }

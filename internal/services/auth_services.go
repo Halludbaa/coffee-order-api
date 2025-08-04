@@ -85,12 +85,12 @@ func (authS *AuthServices) SignIn(ctx context.Context, request *model.SignInRequ
 		return nil, err	
 	}
 
-	access_token, err := authS.jwtServices.GenerateAccessToken(user.Username)
+	access_token, err := authS.jwtServices.GenerateAccessToken(user.Username, "user")
 	if err != nil {
 		return nil, apperrors.NewInternal()
 	}
 
-	refresh_token, err := authS.jwtServices.GenerateRefreshToken(user.Username)
+	refresh_token, err := authS.jwtServices.GenerateRefreshToken(user.Username, "user")
 	if err != nil {
 		return nil, apperrors.NewInternal()
 	}
@@ -122,7 +122,7 @@ func (authS *AuthServices) Refresh(ctx context.Context, token string) (*model.Si
 		return nil, err.(*apperrors.Apperrors)
 	}
 
-	access_token, err := authS.jwtServices.GenerateAccessToken(session.Username)
+	access_token, err := authS.jwtServices.GenerateAccessToken(session.Username, "user")
 	if err != nil {
 		return nil, apperrors.NewInternal()
 	}
