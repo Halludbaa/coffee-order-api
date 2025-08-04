@@ -9,3 +9,4 @@ go get	github.com/spf13/viper
 go get github.com/lib/pq
 go get go.mongodb.org/mongo-driver/mongo
 go get github.com/jmoiron/sqlx
+go get github.com/gofiber/fiber/v2

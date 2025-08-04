@@ -11,7 +11,7 @@ func main(){
 	viper := config.NewViper()
 	log := config.NewLogger(viper)
 	db := config.NewDB(viper, log)
-	app := config.NewGin()
+	app := config.NewFiber(viper)
 	mongo := config.NewMongo(viper, log)
 
 	defer func ()  {

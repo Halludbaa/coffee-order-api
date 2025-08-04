@@ -6,12 +6,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/viper"
 )
 
 type  RouteConfig struct {
 	Viper				*viper.Viper
-	App 				*gin.Engine
+	App 				*fiber.App
 	AuthHandler 		model.AuthHandler
 	AuthMiddleware		gin.HandlerFunc
 	UserLogMiddleware	gin.HandlerFunc
