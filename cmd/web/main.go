@@ -20,7 +20,6 @@ func main(){
 		log.Fatal("App Was Stopped!")
 	}()
 
-	log.Info("App Is Running!")
 	config.Boostrap(&config.BoostrapConfig{
 		App: app,
 		Log: log,
@@ -29,7 +28,7 @@ func main(){
 		Mongo: mongo,
 	})
 	
-	err := app.Run(fmt.Sprintf(":%s", viper.GetString("web.port")))
+	err := app.Listen(fmt.Sprintf(":%s", viper.GetString("web.port")))
 	if err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}

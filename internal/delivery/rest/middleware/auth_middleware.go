@@ -1,36 +1,13 @@
 package middleware
 
 import (
-	"coffee/internal/model"
-	"coffee/internal/model/apperrors"
-	"log"
-
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 )
 
-func NewAuthMiddleware(jwtServices model.JWTServices) gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		token := ctx.GetHeader("Authorization")
-		
-		if token == "" {
-			//Temporary Code
-			var err error
-			token, err = ctx.Cookie("Authorization")
-			if err != nil {
-				ctx.AbortWithStatusJSON(apperrors.Authorization, apperrors.NewAuthorization("you don't have a token yet"))
-				return
-			}
-			// End Temporary
-		}
-		
-		log.Println(token)
-		userID, err := jwtServices.ValidateAccessToken(token)
-		if err != nil {
-			ctx.AbortWithStatusJSON(err.Code, err)
-			return
-		}
-		
-		ctx.Set("auth", userID)
-		ctx.Next()
+func NewAuthMiddleware() fiber.Handler {
+	return func(ctx *fiber.Ctx)  error{
+		_ = ctx.Get("Authorization", "NOT_FOUND")
+
+		return ctx.Next()
 	}
 } 

@@ -1,18 +1,8 @@
 package model
 
 import (
-	"coffee/internal/entity"
 	"coffee/internal/model/apperrors"
-	"context"
 )
-
-type AuthServices interface {
-	SignUp(ctx context.Context, request *SignUpRequest) (*UserResponse, *apperrors.Apperrors)
-	SignIn(ctx context.Context, request *SignInRequest, userAgent string) (*SignInResponse, *apperrors.Apperrors)
-	Refresh(ctx context.Context, token string) (*SignInResponse, *apperrors.Apperrors)
-	Logout(ctx context.Context, request *entity.Session) *apperrors.Apperrors
-	Info(ctx context.Context, request string) (*UserResponse, *apperrors.Apperrors)
-}
 
 
 type JWTServices interface{

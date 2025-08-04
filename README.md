@@ -4,10 +4,10 @@
 
 ## TechStack
 
-- Go :
-- PostgreSQL (Relational Database):
-- MongoDB (Document-based Database):
-- Redis (Cached Database):
+- Go : https://go.dev/
+- PostgreSQL (Relational Database): https://www.postgresql.org/
+- MongoDB (Document-based Database): https://www.mongodb.com/
+- Redis (Cached Database): https://redis.io/
 
 ## Library & Framework
 
