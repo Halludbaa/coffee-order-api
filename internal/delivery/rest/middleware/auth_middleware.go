@@ -3,6 +3,7 @@ package middleware
 import (
 	"coffee/internal/model"
 	"coffee/internal/model/apperrors"
+	"log"
 
 	"github.com/gin-gonic/gin"
 )
@@ -22,6 +23,7 @@ func NewAuthMiddleware(jwtServices model.JWTServices) gin.HandlerFunc {
 			// End Temporary
 		}
 		
+		log.Println(token)
 		userID, err := jwtServices.ValidateAccessToken(token)
 		if err != nil {
 			ctx.AbortWithStatusJSON(err.Code, err)
@@ -31,4 +33,4 @@ func NewAuthMiddleware(jwtServices model.JWTServices) gin.HandlerFunc {
 		ctx.Set("auth", userID)
 		ctx.Next()
 	}
-}
+} 

@@ -18,7 +18,6 @@ var (
 
 type JWTClaims struct {
 	UserID string `json:"user_id"`
-	Role string `json:"role"`
 	jwt.RegisteredClaims
 }
 
@@ -37,10 +36,9 @@ func NewJWTServices (viper *viper.Viper, log *logrus.Logger) model.JWTServices {
 }
 
 
-func (sJWT *JWTServices) GenerateAccessToken(userID string, role string) (string, error) {
+func (sJWT *JWTServices) GenerateAccessToken(userID string) (string, error) {
 	claims := JWTClaims{
 		UserID: userID,
-		Role: role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(30 * time.Minute)),
 		},
@@ -51,10 +49,9 @@ func (sJWT *JWTServices) GenerateAccessToken(userID string, role string) (string
 	return token.SignedString(sJWT.access_key)
 }
 
-func  (sJWT *JWTServices) GenerateRefreshToken(userID string, role string) (string, error) {
+func  (sJWT *JWTServices) GenerateRefreshToken(userID string) (string, error) {
 	claims := JWTClaims{
 		UserID: userID,
-		Role: role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(7 * 24 * time.Hour)),
 		},
