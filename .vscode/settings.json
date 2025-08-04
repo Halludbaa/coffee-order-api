@@ -1,0 +1,14 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "coffee postgres",
+      "database": "coffee_db",
+      "username": "postgres",
+      "password": "dockerpostgres1"
+    }
+  ]
+}
