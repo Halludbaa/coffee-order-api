@@ -20,9 +20,10 @@
     }
   },
   "jwt": {
+    "secret_key": "rahasiapakaibanget",
     "key": {
-      "refresh": "fdkajfdjalkfjkajfkjakfjalthisissosecretokjakfjaj",
-      "access": "thisissoajfkajkdjasecrettooright?ajdkajjkajdjyahahakon"
+      // "refresh": "fdkajfdjalkfjkajfkjakfjalthisissosecretokjakfjaj",
+      // "access": "thisissoajfkajkdjasecrettooright?ajdkajjkajdjyahahakon"
     }
   },
   "cors": {

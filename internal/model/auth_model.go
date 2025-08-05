@@ -1,5 +1,10 @@
 package model
 
+type Auth struct {
+	Id   string `json:"id,omitempty"`
+	Role string `json:"role,omitempty"`
+}
+
 type SignUpRequest struct {
 	Username        string `json:"username" binding:"required,min=5,max=60"`
 	Email           string `json:"email" binding:"required,email"`
@@ -29,7 +34,6 @@ type SignInResponse struct {
 type RefreshRequest struct {
 	RefreshToken string `json:"token"`
 }
-
 
 // type StoreSession struct {
 // 	Username  string
