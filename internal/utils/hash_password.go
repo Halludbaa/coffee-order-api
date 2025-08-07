@@ -1,23 +1,23 @@
 package utils
 
 import (
-	"coffee/internal/model/apperrors"
-
+	"github.com/gofiber/fiber/v2"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func HashPassword(request string) (string, *apperrors.Apperrors) {
+func HashPassword(request string) (string, error) {
 	password, err := bcrypt.GenerateFromPassword([]byte(request), bcrypt.DefaultCost)
 	if err != nil  {
-		return "", apperrors.NewInternal()
+		return "", fiber.ErrUnauthorized
+
 	}
 
 	return string(password), nil
 }
 
-func ValidatePassword(request string, hashed string) (*apperrors.Apperrors) {
+func ValidatePassword(request string, hashed string) (error) {
 	if err := bcrypt.CompareHashAndPassword([]byte(hashed), []byte(request)); err != nil{
-		return apperrors.NewBadRequest("failed to sign in", []apperrors.APIError{})
+		return fiber.ErrBadRequest
 	}
 	return nil
 }

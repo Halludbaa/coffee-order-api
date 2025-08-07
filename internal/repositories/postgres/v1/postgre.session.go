@@ -3,9 +3,9 @@ package v1
 import (
 	"coffee/internal/entity"
 	"coffee/internal/model"
-	"coffee/internal/model/apperrors"
 	"context"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
 )
@@ -26,7 +26,7 @@ func (sRepo *SessionRepo) Store(ctx context.Context, request *entity.Session) (e
 
 	_, err := sRepo.conn.NamedQueryContext(ctx, query, request)
 	if err != nil {
-		return apperrors.NewInternal()
+		return fiber.ErrInternalServerError
 	}
 
 	return nil
@@ -37,7 +37,7 @@ func (sRepo *SessionRepo) Remove(ctx context.Context, request *entity.Session) (
 	
 	_, err := sRepo.conn.NamedQueryContext(ctx, query, request)
 	if err != nil {
-		return apperrors.NewInternal()
+		return fiber.ErrInternalServerError
 	}
 
 	return nil
@@ -47,7 +47,7 @@ func (sRepo *SessionRepo) FindByUserId(ctx context.Context,  record *entity.Sess
 	query := `SELECT user_name, token FROM sessions_manager WHERE user_id := $1`
 
 	if err := sRepo.conn.GetContext(ctx, record, query, record.UserID); err != nil {
-		return apperrors.NewInternal()
+		return fiber.ErrInternalServerError
 	}
 
 	return nil	
@@ -58,7 +58,7 @@ func (sRepo *SessionRepo) FindByToken(ctx context.Context, record *entity.Sessio
 
 	if err := sRepo.conn.GetContext(ctx, record, query, record.Token); err != nil {
 		sRepo.log.Warn(err)
-		return apperrors.NewAuthorization("you already logout!")
+		return fiber.ErrUnauthorized
 	}
 
 	return nil	

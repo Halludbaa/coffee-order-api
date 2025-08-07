@@ -1,7 +1,5 @@
 package apperrors
 
-import "fmt"
-
 type Type = int
 
 const (
@@ -40,38 +38,38 @@ func PasswordNotMatch() []APIError {
 	}
 }
 
-func NewInternal() *Apperrors {
-	return &Apperrors{
-		Code:    Internal,
-		Message: "Internal server error.",
-	}
-}
+// func NewInternal() *Apperrors {
+// 	return &Apperrors{
+// 		Code:    Internal,
+// 		Message: "Internal server error.",
+// 	}
+// }
 
-func NewAuthorization(reason string) *Apperrors {
-	return &Apperrors{
-		Code:    Authorization,
-		Message: reason,
-	}
-}
+// func NewAuthorization(reason string) *Apperrors {
+// 	return &Apperrors{
+// 		Code:    Authorization,
+// 		Message: reason,
+// 	}
+// }
 
-func NewBadRequest(reason string, errors []APIError) *Apperrors {
-	return &Apperrors{
-		Code:    BadRequest,
-		Message: fmt.Sprintf("Bad request. Reason: %v", reason),
-		Errors: errors,
-	}
-}
+// func NewBadRequest(reason string, errors []APIError) *Apperrors {
+// 	return &Apperrors{
+// 		Code:    BadRequest,
+// 		Message: fmt.Sprintf("Bad request. Reason: %v", reason),
+// 		Errors: errors,
+// 	}
+// }
 
-func NewConflict(name string, value string) *Apperrors {
-	return &Apperrors{
-		Code:    Conflict,
-		Message: fmt.Sprintf("resource: %v with value: %v already exists", name, value),
-	}
-}
+// func NewConflict(name string, value string) *Apperrors {
+// 	return &Apperrors{
+// 		Code:    Conflict,
+// 		Message: fmt.Sprintf("resource: %v with value: %v already exists", name, value),
+// 	}
+// }
 
-func NewNotFound(name string, value string) *Apperrors {
-	return &Apperrors{
-		Code:    NotFound,
-		Message: fmt.Sprintf("resource: %v with value: %v not found", name, value),
-	}
-}
+// func NewNotFound(name string, value string) *Apperrors {
+// 	return &Apperrors{
+// 		Code:    NotFound,
+// 		Message: fmt.Sprintf("resource: %v with value: %v not found", name, value),
+// 	}
+// }

@@ -3,10 +3,10 @@ package v1
 import (
 	"coffee/internal/entity"
 	"coffee/internal/model"
-	"coffee/internal/model/apperrors"
 	"coffee/internal/model/converter"
 	"context"
 
+	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
 )
@@ -44,7 +44,7 @@ func (r *UserRepo) Store(ctx context.Context, request *model.SignUpRequest) (*en
 		r.log.Debug(*inserted)
 		return inserted, nil
 	}
-	return nil, apperrors.NewInternal()
+	return nil, fiber.ErrInternalServerError
 
 
 }
