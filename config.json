@@ -39,6 +39,12 @@
     "password": "dockerpostgres1",
     "host": "localhost",
     "name": "coffee_db",
+    "redis": {
+      "host": "localhost",
+      "port": "6379",
+      "password": "",
+      "database": 0
+    },
     "mongo": {
       "host": "localhost",
       "port": "27017",

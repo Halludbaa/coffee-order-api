@@ -13,6 +13,7 @@ func main(){
 	db := config.NewDB(viper, log)
 	app := config.NewFiber(viper)
 	mongo := config.NewMongo(viper, log)
+	redis := config.NewRedis(viper)
 
 	defer func ()  {
 		db.Close()
@@ -26,6 +27,7 @@ func main(){
 		Viper: viper,
 		DB: db,
 		Mongo: mongo,
+		Redis: redis,
 	})
 	
 	err := app.Listen(fmt.Sprintf(":%s", viper.GetString("web.port")))

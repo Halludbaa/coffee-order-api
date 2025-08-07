@@ -3,9 +3,11 @@ package config
 import (
 	"coffee/internal/delivery/rest/middleware"
 	"coffee/internal/delivery/rest/route"
+	"coffee/internal/utils"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/jmoiron/sqlx"
+	"github.com/redis/go-redis/v9"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -17,10 +19,13 @@ type BoostrapConfig struct {
 	Viper		*viper.Viper
 	DB			*sqlx.DB
 	Mongo		*mongo.Client
+	Redis		*redis.Client
 }
 
 func Boostrap(config *BoostrapConfig) {
-	authMiddleware := middleware.NewAuthMiddleware()
+	tokenUtil := utils.NewTokenUtil(config.Viper, config.Redis)
+
+	authMiddleware := middleware.NewAuthMiddleware(tokenUtil)
 
 	router := route.RouteConfig{
 		Viper: config.Viper,
