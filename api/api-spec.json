@@ -47,12 +47,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -115,12 +109,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "boolean"
                     }
@@ -162,12 +150,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -196,12 +178,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -243,12 +219,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -311,12 +281,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -342,6 +306,7 @@
         }
       }
     },
+
     "/api/products": {
       "post": {
         "tags": ["Product API"],
@@ -381,12 +346,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -461,12 +420,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -545,12 +498,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -624,12 +571,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -686,12 +627,222 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "price": {
+                            "type": "number"
+                          },
+                          "hot_status": {
+                            "type": "boolean"
+                          },
+                          "iced_status": {
+                            "type": "boolean"
+                          },
+                          "available": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/branch/{branchId}/products/{productId}": {
+      "put": {
+        "tags": ["Branch API", "Product API"],
+        "description": "Update branch product",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "hot_status": {
+                    "type": "boolean"
+                  },
+                  "iced_status": {
+                    "type": "boolean"
+                  },
+                  "available": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update branch product status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "hot_status": {
+                          "type": "boolean"
+                        },
+                        "iced_status": {
+                          "type": "boolean"
+                        },
+                        "available": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete branch product",
+        "tags": ["Product API", "Branch API"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "boolean"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/branch/{branchId}/products": {
+      "post": {
+        "tags": ["Branch API", "Product API"],
+        "description": "Add branch product",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "branchId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "product_id": {
+                    "type": "array",
+                    "items": {
                       "type": "string"
-                    },
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success added products to the branch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
                     "data": {
                       "type": "boolean"
                     }
@@ -726,7 +877,7 @@
                   "name": {
                     "type": "string"
                   },
-                  "location": {
+                  "address": {
                     "type": "string"
                   }
                 }
@@ -742,12 +893,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -757,7 +902,7 @@
                         "name": {
                           "type": "string"
                         },
-                        "location": {
+                        "address": {
                           "type": "string"
                         },
                         "created_at": {
@@ -814,7 +959,7 @@
             }
           },
           {
-            "name": "location",
+            "name": "address",
             "in": "query",
             "required": false,
             "schema": {
@@ -830,12 +975,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "array",
                       "items": {
@@ -847,7 +986,7 @@
                           "name": {
                             "type": "string"
                           },
-                          "location": {
+                          "address": {
                             "type": "string"
                           },
                           "created_at": {
@@ -914,12 +1053,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -929,7 +1062,7 @@
                         "name": {
                           "type": "string"
                         },
-                        "location": {
+                        "address": {
                           "type": "string"
                         },
                         "created_at": {
@@ -977,7 +1110,7 @@
                   "name": {
                     "type": "string"
                   },
-                  "location": {
+                  "address": {
                     "type": "string"
                   }
                 }
@@ -993,12 +1126,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "object",
                       "properties": {
@@ -1008,7 +1135,7 @@
                         "name": {
                           "type": "string"
                         },
-                        "location": {
+                        "address": {
                           "type": "string"
                         },
                         "created_at": {
@@ -1055,12 +1182,6 @@
                 "schema": {
                   "type": "object",
                   "properties": {
-                    "code": {
-                      "type": "number"
-                    },
-                    "status": {
-                      "type": "string"
-                    },
                     "data": {
                       "type": "boolean"
                     }
