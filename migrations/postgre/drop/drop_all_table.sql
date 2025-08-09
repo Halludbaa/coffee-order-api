@@ -1,2 +1,1 @@
-DROP TABLE users;
-DROP TABLE sessions_manager;
+DROP DATABASE coffee_db;

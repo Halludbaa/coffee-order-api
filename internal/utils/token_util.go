@@ -63,7 +63,7 @@ func (t *TokenUtil) ParseToken(ctx context.Context, tokenString string) (*model.
 		return nil, fiber.ErrUnauthorized
 	}
 
-	if claims.ExpiresAt.Before(time.Now()) || !token.Valid {
+	if !token.Valid {
 		return nil, fiber.ErrUnauthorized
 	}
 

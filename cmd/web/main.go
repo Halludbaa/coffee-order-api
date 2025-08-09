@@ -18,6 +18,7 @@ func main(){
 	defer func ()  {
 		db.Close()
 		mongo.Disconnect(context.TODO())
+		redis.Close()
 		log.Fatal("App Was Stopped!")
 	}()
 
@@ -35,6 +36,4 @@ func main(){
 		log.Fatalf("Failed to start server: %v", err)
 	}
 	
-
-
 }

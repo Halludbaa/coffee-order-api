@@ -33,12 +33,15 @@
     "credentials": true
   },
   "db": {
-    "app": "postgres",
-    "user": "postgres",
-    "port": "5432",
-    "password": "dockerpostgres1",
-    "host": "localhost",
-    "name": "coffee_db",
+    "client": "postgres",
+    "postgres": {
+      "app": "postgres",
+      "user": "postgres",
+      "port": "5432",
+      "password": "dockerpostgres1",
+      "host": "localhost",
+      "name": "coffee_db"
+    },
     "redis": {
       "host": "localhost",
       "port": "6379",
