@@ -31,9 +31,9 @@ type SignInResponse struct {
 	RefreshToken string        `json:"refresh_token,omitempty"`
 }
 
-type RefreshRequest struct {
-	RefreshToken string `json:"token"`
-}
+// type RefreshRequest struct {
+// 	RefreshToken string `json:"token"`
+// }
 
 // type StoreSession struct {
 // 	Username  string
