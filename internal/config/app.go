@@ -1,8 +1,11 @@
 package config
 
 import (
+	"coffee/internal/delivery/rest/handlers"
 	"coffee/internal/delivery/rest/middleware"
 	"coffee/internal/delivery/rest/route"
+	"coffee/internal/repositories/postgres"
+	"coffee/internal/services"
 	"coffee/internal/utils"
 
 	"github.com/gofiber/fiber/v2"
@@ -27,10 +30,18 @@ func Boostrap(config *BoostrapConfig) {
 
 	authMiddleware := middleware.NewAuthMiddleware(tokenUtil)
 
+	menuRepo := postgres.NewMenuRepository(config.DB, config.Log)
+
+	menuService := services.NewMenuService(menuRepo, config.Log)
+
+	menuHandler := handlers.NewMenuHandler(menuService, config.Log)
+
+
 	router := route.RouteConfig{
 		Viper: config.Viper,
 		App: config.App,
 		AuthMiddleware: authMiddleware,
+		MenuHandler: menuHandler,
 	}
 
 	router.Setup()

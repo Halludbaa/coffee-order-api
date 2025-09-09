@@ -8,15 +8,16 @@ import (
 	"fmt"
 
 	"github.com/google/uuid"
+	"github.com/jmoiron/sqlx"
 	"github.com/sirupsen/logrus"
 )
 
 type MenuRepository struct {
-	DB *sql.DB
+	DB *sqlx.DB
 	Log *logrus.Entry
 }
 
-func NewMenuRepository(db *sql.DB, log *logrus.Logger) model.MenuRepository {
+func NewMenuRepository(db *sqlx.DB, log *logrus.Logger) model.MenuRepository {
 	return &MenuRepository{
 		DB: db,
 		Log: log.WithField("layer", "repository").WithField("struct", "MenuRepository"),

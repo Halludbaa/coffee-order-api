@@ -21,7 +21,7 @@ func NewDB(viper *viper.Viper, log *logrus.Logger) *sqlx.DB {
 
 	ConnStr := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=disable", DB_HOST, DB_USER, DB_PASSWORD, DB_NAME )
 
-	db, err:= sqlx.Connect(viper.GetString("db.app"), ConnStr)
+	db, err:= sqlx.Connect(DB_CLIENT, ConnStr)
 
 
 	if err != nil {

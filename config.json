@@ -20,16 +20,12 @@
     }
   },
   "jwt": {
-    "secret_key": "rahasiapakaibanget",
-    "key": {
-      // "refresh": "fdkajfdjalkfjkajfkjakfjalthisissosecretokjakfjaj",
-      // "access": "thisissoajfkajkdjasecrettooright?ajdkajjkajdjyahahakon"
-    }
+    "secret_key": "rahasiapakaibanget"
   },
   "cors": {
     "methods": "POST, PATCH, GET, DELETE",
     "headers": "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With",
-    "origin": "*",
+    "origin": "http://localhost:5000",
     "credentials": true
   },
   "db": {
@@ -38,7 +34,7 @@
       "app": "postgres",
       "user": "postgres",
       "port": "5432",
-      "password": "dockerpostgres1",
+      "password": "rahasia",
       "host": "localhost",
       "name": "coffee_db"
     },

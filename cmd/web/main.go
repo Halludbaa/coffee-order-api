@@ -19,7 +19,7 @@ func main(){
 		db.Close()
 		mongo.Disconnect(context.TODO())
 		redis.Close()
-		log.Fatal("App Was Stopped!")
+		// log.Fatal("App Was Stopped!")
 	}()
 
 	config.Boostrap(&config.BoostrapConfig{
