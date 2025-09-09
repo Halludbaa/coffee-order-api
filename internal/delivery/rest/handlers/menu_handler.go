@@ -223,3 +223,79 @@ func (h *MenuHandler) GetStoreMenu(c *fiber.Ctx) error {
     responses := converter.ToMenuItemResponses(items)
     return c.JSON(dto.WebSuccessResponse[[]dto.MenuItemResponse]{Data: responses})
 }
+
+// UpdateStoreMenu handles PUT /api/stores/:storeId/menu/:menuItemId
+func (h *MenuHandler) UpdateStoreMenu(c *fiber.Ctx) error {
+    storeID, err := uuid.Parse(c.Params("storeId"))
+    if err != nil {
+        return c.Status(http.StatusBadRequest).JSON(dto.WebErrorResponse{
+            Error: "Invalid store ID",
+        })
+    }
+
+    menuItemID, err := uuid.Parse(c.Params("menuItemId"))
+    if err != nil {
+        return c.Status(http.StatusBadRequest).JSON(dto.WebErrorResponse{
+            Error: "Invalid menu item ID",
+        })
+    }
+
+    var req dto.StoreMenuRequest
+    if err := c.BodyParser(&req); err != nil {
+        return c.Status(http.StatusBadRequest).JSON(dto.WebErrorResponse{
+            Error: "Invalid request body",
+        })
+    }
+
+    h.Log.WithFields(logrus.Fields{
+        "store_id": storeID,
+        "menu_item_id": menuItemID,
+    }).Info("Updating store menu item")
+
+    item := &entity.StoreMenu{
+        MenuItemID:    menuItemID,
+        PriceOverride: req.PriceOverride,
+        IsAvailable:   req.IsAvailable,
+        SortOrder:     req.SortOrder,
+    }
+
+    if err := h.Service.UpdateStoreMenuItem(c.Context(), storeID, menuItemID, item); err != nil {
+        h.Log.WithError(err).Error("Failed to update store menu item")
+        return c.Status(http.StatusInternalServerError).JSON(dto.WebErrorResponse{
+            Error: err.Error(),
+        })
+    }
+
+    return c.JSON(dto.WebSuccessResponse[bool]{Data: true})
+}
+
+// RemoveFromStoreMenu handles DELETE /api/stores/:storeId/menu/:menuItemId
+func (h *MenuHandler) DeleteStoreMenu(c *fiber.Ctx) error {
+    storeID, err := uuid.Parse(c.Params("storeId"))
+    if err != nil {
+        return c.Status(http.StatusBadRequest).JSON(dto.WebErrorResponse{
+            Error: "Invalid store ID",
+        })
+    }
+
+    menuItemID, err := uuid.Parse(c.Params("menuItemId"))
+    if err != nil {
+        return c.Status(http.StatusBadRequest).JSON(dto.WebErrorResponse{
+            Error: "Invalid menu item ID",
+        })
+    }
+
+    h.Log.WithFields(logrus.Fields{
+        "store_id": storeID,
+        "menu_item_id": menuItemID,
+    }).Info("Removing item from store menu")
+
+    if err := h.Service.RemoveFromStoreMenu(c.Context(), storeID, menuItemID); err != nil {
+        h.Log.WithError(err).Error("Failed to remove item from store menu")
+        return c.Status(http.StatusInternalServerError).JSON(dto.WebErrorResponse{
+            Error: err.Error(),
+        })
+    }
+
+    return c.JSON(dto.WebSuccessResponse[bool]{Data: true})
+}
