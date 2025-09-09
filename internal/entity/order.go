@@ -11,7 +11,7 @@ type Order struct {
 	CustomerNote  string    `db:"customer_note" json:"customer_note,omitempty"`
 	CreatedAt     time.Time `db:"created_at" json:"created_at"`
 	UpdatedAt     time.Time `db:"updated_at" json:"updated_at"`
-}
+}	
 
 type OrderItem struct {
 	ID             int         `db:"id" json:"id"`

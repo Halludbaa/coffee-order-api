@@ -3,6 +3,8 @@ package model
 import (
 	"coffee/internal/entity"
 	"context"
+
+	"github.com/google/uuid"
 )
 
 type UserRepository interface {
@@ -19,4 +21,19 @@ type SessionRepo interface {
 	Remove(ctx context.Context, request *entity.Session) (error)
 	FindByUserId(ctx context.Context,  record *entity.Session) (error)
 	FindByToken(ctx context.Context,  record *entity.Session) (error)
+}
+
+type MenuRepository interface {
+    // Global Menu Item
+    CreateMenuItem(ctx context.Context, item *entity.MenuItem) error
+    GetAllMenuItems(ctx context.Context) ([]*entity.MenuItem, error)
+    GetMenuItemByID(ctx context.Context, id uuid.UUID) (*entity.MenuItem, error)
+    UpdateMenuItem(ctx context.Context, item *entity.MenuItem) error
+    DeleteMenuItem(ctx context.Context, id uuid.UUID) error
+
+    // Store-Specific Menu
+    AddToStoreMenu(ctx context.Context, storeID uuid.UUID, item *entity.StoreMenu) error
+    GetStoreMenu(ctx context.Context, storeID uuid.UUID) ([]*entity.MenuItem, error)
+    UpdateStoreMenuItem(ctx context.Context, storeID, menuItemID uuid.UUID, item *entity.StoreMenu) error
+    RemoveFromStoreMenu(ctx context.Context, storeID, menuItemID uuid.UUID) error
 }
