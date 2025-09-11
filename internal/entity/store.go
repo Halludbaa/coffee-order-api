@@ -1,9 +1,13 @@
 package entity
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type Store struct {
-	ID        int       `db:"id" json:"id"`
+	ID        uuid.UUID       `db:"id" json:"id"`
 	Name      string    `db:"name" json:"name"`
 	Location  string    `db:"location" json:"location,omitempty"`
 	Address   string    `db:"address" json:"address,omitempty"`

@@ -8,16 +8,18 @@ import (
 	"github.com/spf13/viper"
 )
 
-type  RouteConfig struct {
+type RouteConfig struct {
 	Viper				*viper.Viper
 	App 				*fiber.App
 	AuthMiddleware		fiber.Handler
 	MenuHandler			*handlers.MenuHandler
+	StoreHandler			*handlers.StoreHandler
 }
 
 func (c *RouteConfig) Setup(){
 	c.SetupMiddleware()
 	c.SetupMenuRoute()
+	c.SetupStoreRoute()
 }
 
 func (c *RouteConfig) SetupMiddleware() {
@@ -33,8 +35,22 @@ func (c *RouteConfig) SetupMenuRoute() {
 
 	c.App.Post("/api/stores/:storeId/menu", c.MenuHandler.AddToStoreMenu)
 	c.App.Get("/api/stores/:storeId/menu", c.MenuHandler.GetStoreMenu)
+	c.App.Put("/api/stores/:storeId/menu", c.MenuHandler.UpdateStoreMenu)
+	c.App.Delete("/api/stores/:storeId/menu", c.MenuHandler.DeleteStoreMenu)
 }
 
+func (c *RouteConfig) SetupStoreRoute() {
+	api := c.App.Group("/api")
+	
+	stores := api.Group("/stores")
+	stores.Post("/", c.StoreHandler.CreateStore)
+	stores.Get("/", c.StoreHandler.GetAllStores)
+	stores.Get("/:id", c.StoreHandler.GetStoreByID)
+	stores.Get("/slug/:slug", c.StoreHandler.GetStoreBySlug)
+	stores.Put("/:id", c.StoreHandler.UpdateStore)
+	stores.Delete("/:id", c.StoreHandler.DeleteStore)
+	stores.Patch("/:id/active", c.StoreHandler.SetStoreActive)
+}
 
 func (c *RouteConfig) SetupGuestRoute() {
 	c.App.Get("/ping", func (ctx *fiber.Ctx) error  {
